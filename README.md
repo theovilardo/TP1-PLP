@@ -1,4 +1,4 @@
-# Trabajo Práctico 1 - Programación Funcional
+# Trabajo Práctico N° 1 - Programación Funcional
 
 ## Paradigmas de Lenguajes de Programación - Segundo Cuatrimestre 2024
 
