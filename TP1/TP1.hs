@@ -74,11 +74,12 @@ procCola :: Procesador [a] a
 procCola [] = []
 procCola (x:xs) = xs
 
-procHijosRose :: Procesador (RoseTree a) (RoseTree a)
-procHijosRose = undefined
+procHijosRose :: Procesador (RoseTree a) (RoseTree a) -- devuelve una lista de RoseTree (Proc)
+procHijosRose (Rose _ hijos) = hijos 
 
 procHijosAT :: Procesador (AT a) (AT a)
-procHijosAT = undefined
+procHijosAT Nil = []
+procHijosAT (Tern v u d t) = [u, d, t]
 
 procRaizTrie :: Procesador (Trie a) (Maybe a)
 procRaizTrie  = undefined
