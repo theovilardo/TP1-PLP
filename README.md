@@ -1,6 +1,6 @@
 # Trabajo Práctico N° 1 - Programación Funcional
 
-## Paradigmas de Lenguajes de Programación - Segundo Cuatrimestre 2024
+## Paradigmas de Programación - Segundo Cuatrimestre 2024
 
 ### Introducción
 En este trabajo práctico exploramos el concepto de 'procesadores', funciones que permiten recorrer y procesar estructuras de datos definidas. Un procesador se define como `type Procesador a b = a -> [b]`, donde `a` es el tipo de la estructura y `b` es el tipo de los resultados a generar.
