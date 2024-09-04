@@ -82,10 +82,12 @@ procHijosAT Nil = []
 procHijosAT (Tern v u d t) = [u, d, t]
 
 procRaizTrie :: Procesador (Trie a) (Maybe a)
-procRaizTrie  = undefined
+procRaizTrie (TrieNodo Nothing _) = []
+procRaizTrie (TrieNodo (Just x) _) = [Just x]
 
 procSubTries :: Procesador (Trie a) (Char, Trie a)
-procSubTries  = undefined
+procSubTries (TrieNodo _ []) = []
+procSubTries (TrieNodo _ hijos) = hijos
 
 
 --Ejercicio 2
