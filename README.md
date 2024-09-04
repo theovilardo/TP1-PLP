@@ -60,5 +60,3 @@ El trabajo se entregará en un único archivo llamado `tp1.hs` a través de la p
 - [Hayoo!](http://holumbus.fh-wedel.de/hayoo/hayoo.html)
 
 ---
-
-*Este README.md proporciona una visión general y directrices básicas para el desarrollo del Trabajo Práctico 1 de Programación Funcional.*
