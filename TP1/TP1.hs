@@ -71,7 +71,8 @@ procId :: Procesador a a
 procId = undefined
 
 procCola :: Procesador [a] a
-procCola = undefined
+procCola [] = []
+procCola (x:xs) = xs
 
 procHijosRose :: Procesador (RoseTree a) (RoseTree a)
 procHijosRose = undefined
