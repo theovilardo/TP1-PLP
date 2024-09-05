@@ -95,8 +95,9 @@ procSubTries (TrieNodo _ hijos) = hijos
 --foldAT :: undefined
 foldAT = undefined
 
---foldRose :: undefined
-foldRose = undefined
+foldRose :: (a -> [b] -> b) -> RoseTree a -> b
+foldRose cRose (Rose n hijos) = cRose n (map rec hijos)
+                      where rec = foldRose cRose
 
 --foldTrie :: undefined
 foldTrie = undefined
