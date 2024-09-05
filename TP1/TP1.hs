@@ -105,10 +105,12 @@ foldTrie = undefined
 
 --Ejercicio 3
 unoxuno :: Procesador [a] [a]
-unoxuno = undefined
+unoxuno [ ] = []
+unoxuno (x:xs) = [x] : unoxuno xs
 
 sufijos :: Procesador [a] [a]
-sufijos = undefined
+sufijos [] = [[]]
+sufijos (x:xs) = (x:xs) : sufijos xs
 
 
 --Ejercicio 4
