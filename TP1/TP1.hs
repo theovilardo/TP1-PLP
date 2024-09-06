@@ -107,8 +107,7 @@ foldTrie = undefined
 
 --Ejercicio 3
 unoxuno :: Procesador [a] [a]
-unoxuno [ ] = []
-unoxuno (x:xs) = [x] : unoxuno xs
+unoxuno = map (\ x -> [x])
 
 sufijos :: Procesador [a] [a]
 sufijos [] = [[]]
