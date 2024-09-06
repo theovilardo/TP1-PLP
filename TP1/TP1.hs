@@ -114,14 +114,18 @@ sufijos (x:xs) = (x:xs) : sufijos xs
 
 
 --Ejercicio 4
---preorder :: undefined
-preorder = undefined
+preorder :: AT a -> [a]
+preorder Nil = []
+preorder (Tern v u d t) = [v] ++ preorder  u ++ preorder d ++ preorder t
 
---inorder :: undefined
-inorder = undefined
+inorder :: AT a -> [a]
+inorder Nil = []
+inorder (Tern v u d t) =
+    inorder u ++ inorder d ++ [v] ++ inorder t
 
---postorder :: undefined
-postorder = undefined
+postorder :: AT a -> [a]
+postorder Nil = []
+postorder (Tern v u d t) = postorder u ++ postorder d ++ postorder t ++ [v]
 
 --Ejercicio 5
 
