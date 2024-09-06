@@ -68,7 +68,7 @@ procVacio :: Procesador a b
 procVacio = \_ -> []
 
 procId :: Procesador a a
-procId = undefined
+procId = \x -> [x]
 
 procCola :: Procesador [a] a
 procCola [] = []
