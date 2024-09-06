@@ -92,8 +92,10 @@ procSubTries (TrieNodo _ hijos) = hijos
 
 --Ejercicio 2
 
---foldAT :: undefined
-foldAT = undefined
+foldAT :: (a -> b -> b -> b -> b) -> b -> AT a -> b -- es como el de foldAEB pero con un hijo mas por nodo
+foldAT cTern cNil at = case at of
+                Nil -> cNil
+                Tern v u d t -> cTern v (foldAT cTern cNil u) (foldAT cTern cNil d) (foldAT cTern cNil t)
 
 foldRose :: (a -> [b] -> b) -> RoseTree a -> b
 foldRose cRose (Rose n hijos) = cRose n (map rec hijos)
@@ -165,7 +167,7 @@ clavesValidas char (TrieNodo (Just v) hijos) = char : concatMap (\(c, hijo) -> c
 --Ejercicio 8
 -- 8.a)
 ifProc :: (a->Bool) -> Procesador a b -> Procesador a b -> Procesador a b
-ifProc = undefined
+ifProc pred p1 p2 = \x -> if pred x then p1 x else p2 x
 
 -- 8.b)
 (++!) :: Procesador a b -> Procesador a b -> Procesador a b
