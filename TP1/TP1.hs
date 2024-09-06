@@ -130,13 +130,17 @@ postorder (Tern v u d t) = postorder u ++ postorder d ++ postorder t ++ [v]
 --Ejercicio 5
 
 preorderRose :: Procesador (RoseTree a) a
-preorderRose = undefined
+preorderRose (Rose v hijos) = v : concatMap preorderRose hijos
 
 hojasRose :: Procesador (RoseTree a) a
-hojasRose = undefined
+hojasRose (Rose v []) = [v]
+hojasRose (Rose v hijos) = concatMap hojasRose hijos
 
 ramasRose :: Procesador (RoseTree a) [a]
-ramasRose = undefined
+ramasRose (Rose v []) = [[v]]
+ramasRose (Rose v hijos) = case hijos of
+                    [] -> [[v]] -- tiene una hoja (seria como la raiz)
+                    _ -> concatMap (\hijo -> map (v :) (ramasRose hijo)) hijos -- se puede usar composicion tambien
 
 
 --Ejercicio 6
