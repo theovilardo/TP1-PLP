@@ -145,8 +145,11 @@ ramasRose (Rose v hijos) = case hijos of
 
 --Ejercicio 6
 
---caminos :: undefined
-caminos = undefined
+caminos :: Trie a -> [String] -- es como hacer un dump de todas las claves posibles
+caminos trie = buscarEnTrie trie -- deberia buscar desde la raiz todos los caminos posibles
+
+buscarEnTrie :: Trie a -> [String]
+buscarEnTrie (TrieNodo _ hijos) = [""] : concatMap (\(c, hijo) -> map (c :) (buscarEnTrie hijo)) hijos -- "c" es el char del nodo
 
 
 --Ejercicio 7
