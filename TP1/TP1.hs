@@ -154,8 +154,12 @@ buscarEnTrie (TrieNodo _ hijos) = [""] : concatMap (\(c, hijo) -> map (c :) (bus
 
 --Ejercicio 7
 
---palabras :: undefined
-palabras = undefined
+palabras :: Trie a -> [String] -- seria la lista de claves validas
+palabras trie = tail (clavesValidas "" trie) -- la raiz siempre es ""?
+
+clavesValidas :: String -> Trie a -> [String]
+clavesValidas char (TrieNodo Nothing hijos) = concatMap (\(c, hijo) -> clavesValidas (char ++ [c]) hijo) hijos
+clavesValidas char (TrieNodo (Just v) hijos) = char : concatMap (\(c, hijo) -> clavesValidas (char ++ [c]) hijo) hijos
 
 
 --Ejercicio 8
