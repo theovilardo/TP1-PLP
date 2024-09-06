@@ -171,7 +171,7 @@ ifProc pred p1 p2 = \x -> if pred x then p1 x else p2 x
 
 -- 8.b)
 (++!) :: Procesador a b -> Procesador a b -> Procesador a b
-(++!) = undefined
+(++!) p1 p2 = \x -> p1 x ++ p2 x
 
 -- 8.c)
 (.!) :: Procesador b c -> Procesador a b -> Procesador a c
