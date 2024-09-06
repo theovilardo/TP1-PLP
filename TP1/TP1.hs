@@ -175,7 +175,11 @@ ifProc pred p1 p2 = \x -> if pred x then p1 x else p2 x
 
 -- 8.c)
 (.!) :: Procesador b c -> Procesador a b -> Procesador a c
-(.!) = undefined
+(.!) p1 p2 = \x -> mapProcesador p1 (p2 x) -- habria que armar un mapProcesador
+
+mapProcesador :: Procesador a b -> [a] -> [b]
+mapProcesador _ [] = []
+mapProcesador p1 (x:xs) = head (p1 x) : mapProcesador p1 xs  -- medio rustico pero puede andar
 
 --Ejercicio 9
 -- Se recomienda poner la demostración en un documento aparte, por claridad y prolijidad, y, preferentemente, en algún formato de Markup o Latex, de forma de que su lectura no sea complicada.
