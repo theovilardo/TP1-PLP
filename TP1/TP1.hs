@@ -101,8 +101,8 @@ foldRose :: (a -> [b] -> b) -> RoseTree a -> b
 foldRose cRose (Rose n hijos) = cRose n (map rec hijos)
                       where rec = foldRose cRose
 
---foldTrie :: undefined
-foldTrie = undefined
+foldTrie :: (Maybe a -> [(Char, b)] -> b) -> Trie a -> b
+foldTrie cTrie (TrieNodo v hijos) = cTrie v (map (\(char, hijo) -> (char, foldTrie cTrie hijo)) hijos)
 
 
 --Ejercicio 3
@@ -178,7 +178,7 @@ ifProc pred p1 p2 = \x -> if pred x then p1 x else p2 x
 
 mapProcesador :: Procesador a b -> [a] -> [b]
 mapProcesador _ [] = []
-mapProcesador p1 (x:xs) = head (p1 x) : mapProcesador p1 xs  -- CORRECCION: esta mal porque x puede ser una estructura, no necesariamente tiene un solo valor
+mapProcesador p1 (x:xs) = p1 x ++ mapProcesador p1 xs
 
 --Ejercicio 9
 -- Se recomienda poner la demostración en un documento aparte, por claridad y prolijidad, y, preferentemente, en algún formato de Markup o Latex, de forma de que su lectura no sea complicada.
