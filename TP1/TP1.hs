@@ -110,51 +110,41 @@ unoxuno :: Procesador [a] [a]
 unoxuno = map (\ x -> [x])
 
 sufijos :: Procesador [a] [a]
-sufijos [] = [[]]
-sufijos (x:xs) = (x:xs) : sufijos xs
-
+sufijos xs = rec xs []
+      where rec [] acc = acc
+            rec ys acc = ys : rec (tail ys) acc
 
 --Ejercicio 4
 preorder :: AT a -> [a]
-preorder Nil = []
-preorder (Tern v u d t) = [v] ++ preorder  u ++ preorder d ++ preorder t
+preorder = foldAT (\v u d t -> [v] ++ u ++ d ++ t) [] -- valor inicial "[]"
 
 inorder :: AT a -> [a]
-inorder Nil = []
-inorder (Tern v u d t) =
-    inorder u ++ inorder d ++ [v] ++ inorder t
+inorder = foldAT (\v u d t -> u ++ d ++ [v] ++ t) []
 
 postorder :: AT a -> [a]
-postorder Nil = []
-postorder (Tern v u d t) = postorder u ++ postorder d ++ postorder t ++ [v]
+postorder = foldAT (\v u d t -> u ++ d ++ t ++ [v]) []
 
 --Ejercicio 5
 
 preorderRose :: Procesador (RoseTree a) a
-preorderRose (Rose v hijos) = v : concatMap preorderRose hijos
+preorderRose = foldRose (\v hijos -> v : concat hijos)
 
 hojasRose :: Procesador (RoseTree a) a
-hojasRose (Rose v []) = [v]
-hojasRose (Rose v hijos) = concatMap hojasRose hijos
+hojasRose = foldRose (\v hijos -> if null hijos then [v] else concat hijos)
 
 ramasRose :: Procesador (RoseTree a) [a]
-ramasRose (Rose v []) = [[v]]
-ramasRose (Rose v hijos) = case hijos of
-                    [] -> [[v]] -- tiene una hoja (seria como la raiz)
-                    _ -> concatMap (\hijo -> map (v :) (ramasRose hijo)) hijos -- se puede usar composicion tambien
+ramasRose = foldRose (\v hijos -> if null hijos then [[v]] else map (v: ) (concat hijos))
 
 
 --Ejercicio 6
 
 caminos :: Trie a -> [String] -- es como hacer un dump de todas las claves posibles
-caminos trie = buscarEnTrie trie -- deberia buscar desde la raiz todos los caminos posibles
-
-buscarEnTrie :: Trie a -> [String]
-buscarEnTrie (TrieNodo _ hijos) = [""] : concatMap (\(c, hijo) -> map (c :) (buscarEnTrie hijo)) hijos -- "c" es el char del nodo
+caminos = foldTrie (\_ paresCs -> [""] ++ concatMap (\(c, chars) -> map (c :) chars) paresCs)
 
 
 --Ejercicio 7
 
+-- NOTA: Esta mal porque usa recursion explicita, hay que cambiarla para que use el foldTrie
 palabras :: Trie a -> [String] -- seria la lista de claves validas
 palabras trie = tail (clavesValidas "" trie) -- la raiz siempre es ""?
 
