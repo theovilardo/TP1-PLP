@@ -144,13 +144,13 @@ caminos = foldTrie (\_ paresCs -> [""] ++ concatMap (\(c, chars) -> map (c :) ch
 
 --Ejercicio 7
 
--- NOTA: Esta mal porque usa recursion explicita, hay que cambiarla para que use el foldTrie
-palabras :: Trie a -> [String] -- seria la lista de claves validas
-palabras trie = tail (clavesValidas "" trie) -- la raiz siempre es ""?
+palabras :: Trie a -> [String]
+palabras = foldTrie palabrasFold
 
-clavesValidas :: String -> Trie a -> [String]
-clavesValidas char (TrieNodo Nothing hijos) = concatMap (\(c, hijo) -> clavesValidas (char ++ [c]) hijo) hijos
-clavesValidas char (TrieNodo (Just v) hijos) = char : concatMap (\(c, hijo) -> clavesValidas (char ++ [c]) hijo) hijos
+palabrasFold :: Maybe a -> [(Char, [String])] -> [String]
+palabrasFold v cs = case v of
+                Nothing -> concatMap (\(c, strings) -> map (c: ) strings) cs
+                Just _  -> "" : concatMap (\(c, strings) -> map (c: ) strings) cs
 
 
 --Ejercicio 8
