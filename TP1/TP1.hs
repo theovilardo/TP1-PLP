@@ -192,12 +192,12 @@ testsEj1 = test [
  procVacio 0 ~=? ([]:: [Int]),
   procVacio (-15) ~=? ([]:: [Int]),
   procVacio True ~=? ([]::[Bool]),
-  --procVacio "string" ~=? ([]::[char]),
+  procVacio ["string"] ~=? ([] :: [String]), -- cmabie de [char] a [String] (en realidad deberia ser lo mismo pero haskell rompe las bolas)
   procVacio ([] :: [Int]) ~?= ([] :: [Int]),
 
   procId 0 ~=? [0],
   procId True ~=? [True],
-  --procId ([]::Int) ~=? ([[]]:: [[Int]]),
+  procId ([]:: [Int]) ~=? ([[]]:: [[Int]]),
   procId  "string" ~=? ["string"],
   procId [[1,3],[2,4]] ~=? [[[1,3],[2,4]]],
 
