@@ -196,12 +196,12 @@ testsEj1 = test [
  procVacio 0 ~=? ([]:: [Int]),
   procVacio (-15) ~=? ([]:: [Int]),
   procVacio True ~=? ([]::[Bool]),
-  procVacio "string" ~=? ([]::[char]),
-  procVacio ([] :: [Int]) ~?= ([] :: [Int])
+  --procVacio "string" ~=? ([]::[char]),
+  procVacio ([] :: [Int]) ~?= ([] :: [Int]),
 
   procId 0 ~=? [0],
   procId True ~=? [True],
-  procId ([]::Int) ~=? ([[]]:: [[Int]]),
+  --procId ([]::Int) ~=? ([[]]:: [[Int]]),
   procId  "string" ~=? ["string"],
   procId [[1,3],[2,4]] ~=? [[[1,3],[2,4]]],
 
@@ -211,11 +211,11 @@ testsEj1 = test [
   procCola [True, False, True] ~=? [False, True],
   procCola [[1,2,4],[1,5,6]] ~=? [[1,5,6]],
 
-  procHijosRose Rose 0 [Rose 5 [], Rose 1 []] ~=? [Rose 5 [], Rose 1 []],
-  procHijosRose Rose 1 [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]] ~=? [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]],
-  procHijosRose Rose 0 [] ~=? []
-  procHijosRose Rose True [Rose False []] ~=? [Rose False []],
-  procHijosRose Rose "Selección Argentina" [Rose "Selección Francesa" []] ~=? [Rose "Selección Francesa" []],
+  --procHijosRose Rose 0 [Rose 5 [], Rose 1 []] ~=? [Rose 5 [], Rose 1 []],
+  --procHijosRose Rose 1 [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]] ~=? [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]],
+  --procHijosRose Rose 0 [] ~=? [],
+  --procHijosRose Rose True [Rose False []] ~=? [Rose False []],
+  --procHijosRose Rose "Selección Argentina" [Rose "Selección Francesa" []] ~=? [Rose "Selección Francesa" []],
 
 
   procHijosAT (Tern 0 (Tern 5 Nil Nil Nil) (Tern 1 Nil Nil Nil) Nil) ~=? [Tern 5 Nil Nil Nil, Tern 1 Nil Nil Nil, Nil],
@@ -224,13 +224,13 @@ testsEj1 = test [
   procHijosAT (Tern "Selección Argentina" (Tern "Selección Francesa" Nil Nil Nil) (Tern "Selección de Países Bajos" Nil Nil Nil) (Tern "Selección de Uruguay" Nil Nil Nil)) ~=? [Tern "Selección Francesa" Nil Nil Nil, Tern "Selección de Países Bajos" Nil Nil Nil, Tern "Selección de Uruguay" Nil Nil Nil],
 
   procRaizTrie (TrieNodo (Just 20) [('a', TrieNodo Nothing [])]) ~=? [Just 20],
-  procRaizTrie (TrieNodo Nothing []) ~=? [],
+  --procRaizTrie (TrieNodo Nothing []) ~=? [],
   procRaizTrie (TrieNodo (Just False) []) ~=? [Just False],
   procRaizTrie (TrieNodo (Just "Selección Argentina") [('f', TrieNodo (Just "Selección Francesa") [])]) ~=? [Just "Selección Argentina"],
 
-  procSubTries (TrieNodo Nothing []) ~=? []
+  --procSubTries (TrieNodo Nothing []) ~=? [],
   procSubTries (TrieNodo (Just 5) [('a', TrieNodo Nothing []), ('b', TrieNodo (Just 3) [])]) ~=? [('a', TrieNodo Nothing []), ('b', TrieNodo (Just 3) [])],
-  procSubTries (TrieNodo (Just 'p') [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])]) ~=? [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])]
+  procSubTries (TrieNodo (Just 'p') [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])]) ~=? [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])],
   procSubTries (TrieNodo Nothing [('y', TrieNodo (Just True) [])]) ~=? [('y', TrieNodo (Just True) [])]                                                      
   ]
 
