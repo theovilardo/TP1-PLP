@@ -260,8 +260,10 @@ testsEj6 = test [ -- Casos de test para el ejercicio 6
   ]
 
 testsEj7 = test [ -- Casos de test para el ejercicio 7
-  True         -- Caso de test 1 - expresión a testear
-    ~=? True                                          -- Caso de test 1 - resultado esperado
+"palabras de un Trie vacío"  palabras (TrieNodo Nothing []) ~=? [],
+"una palabra de una letra"  palabras (TrieNodo Nothing [('f', TrieNodo (Just True) [])]) ~=? ["f"],
+"palabras con ramas" palabras (TrieNodo Nothing [ ('a', TrieNodo Nothing [ ('b', TrieNodo Nothing [ ('c', TrieNodo (Just 'abc') []) ])])]) ~=? ["abc"],
+"varias palabras" palabras TrieNodo Nothing[ ('h', TrieNodo Nothing[ ('o', TrieNodo Nothing[ ('l', TrieNodo (Just 'hol') []) ])]), ('a', TrieNodo (Just 'a') []) , ('m', TrieNodo Nothing [ ('u', TrieNodo Nothing [ ('n', TrieNodo (Just 'mun') []) ])]) , ('d', TrieNodo Nothing[ ('o', TrieNodo (Just 'do') []) ])] ~=? ["hol", "a", "mun","do"]                                         -- Caso de test 1 - resultado esperado
   ]
 
 testsEj8a = test [ -- Casos de test para el ejercicio 7
