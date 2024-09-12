@@ -274,10 +274,12 @@ testsEj7 = test [ -- Casos de test para el ejercicio 7
    ]
 
 
-testsEj8a = test [ -- Casos de test para el ejercicio 7
-  True         -- Caso de test 1 - expresión a testear
-    ~=? True                                          -- Caso de test 1 - resultado esperado
-  ]
+testsEj8a = test [ -- Casos de test para el ejercicio 8a
+"Debe usar el primer procesador si el predicado es verdadero" (ifProc (not . null) (\x -> [1, 2, 3]) (\x -> [4, 5, 6]) [1, 2, 3]) ~=? [1, 2, 3],
+"Debe usar el segundo procesador si el predicado es falso"  (ifProc (not . null) (\x -> [1, 2, 3]) (\x -> [4, 5, 6]) []) ~=? [4, 5, 6],
+"Debe devolver una lista vacía si ambos procesadores devuelven vacías" (ifProc (const True) (const []) (const []) [1, 2, 3]) ~=? [],                     
+"Debe devolver la lista del primer procesador si el predicado es verdadero" (ifProc (const True) (\x -> [1, 2, 3]) (\x -> [4, 5, 6]) [10]) ~=? [1, 2, 3]
+   ]
 testsEj8b = test [ -- Casos de test para el ejercicio 7
   True         -- Caso de test 1 - expresión a testear
     ~=? True                                          -- Caso de test 1 - resultado esperado
