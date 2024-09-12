@@ -231,7 +231,7 @@ testsEj1 = test [
   procSubTries (TrieNodo Nothing []) ~=? []
   procSubTries (TrieNodo (Just 5) [('a', TrieNodo Nothing []), ('b', TrieNodo (Just 3) [])]) ~=? [('a', TrieNodo Nothing []), ('b', TrieNodo (Just 3) [])],
   procSubTries (TrieNodo (Just 'p') [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])]) ~=? [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])]
-  procSubTries (TrieNodo Nothing [('y', TrieNodo (Just True) [])]) ~=? [('y', TrieNodo (Just True) [])],                                                       
+  procSubTries (TrieNodo Nothing [('y', TrieNodo (Just True) [])]) ~=? [('y', TrieNodo (Just True) [])]                                                      
   ]
 
 testsEj2 = test [ -- Casos de test para el ejercicio 2
