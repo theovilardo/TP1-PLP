@@ -254,17 +254,29 @@ testsEj5 = test [ -- Casos de test para el ejercicio 5
     ~=? 0                                       -- Caso de test 1 - resultado esperado
   ]
 
+t = TrieNodo Nothing [ ('a', TrieNodo (Just True) []) , ('b', TrieNodo Nothing [ ('a', TrieNodo (Just True) [ ('d', TrieNodo Nothing []) ])]) , ('c', TrieNodo (Just True) [])]
+vacio = TrieNodo Nothing []
+unico = TrieNodo Nothing [('f', TrieNodo (Just True) [])]
+completa = TrieNodo Nothing [ ('a', TrieNodo Nothing [ ('b', TrieNodo Nothing [ ('c', TrieNodo (Just 'abc') []) ])])]
+holamundo = (palabras TrieNodo Nothing[ ('h', TrieNodo Nothing[ ('o', TrieNodo Nothing[ ('l', TrieNodo (Just 'hol') []) ])]), ('a', TrieNodo (Just 'a') []) , ('m', TrieNodo Nothing [ ('u', TrieNodo Nothing [ ('n', TrieNodo (Just 'mun') []) ])]) , ('d', TrieNodo Nothing[ ('o', TrieNodo (Just 'do') []) ])])
+
+
 testsEj6 = test [ -- Casos de test para el ejercicio 6
-  False       -- Caso de test 1 - expresión a testear
-    ~=? False                                            -- Caso de test 1 - resultado esperado
+"ejemplo" caminos t ~=? ["", "a", "b", "ba", "bad", "c"],
+"vacio" caminos vacio ~=? [],
+"una palabra" caminos unico ~=? ["", "f"],
+"palabra completa" caminos completa ~=? ["", "a", "ab", "abc"],
+"varias palabras" caminos holamundo ~=? ["", "h", "ho", "hol", "a", "m", "mu", "mun", "d", "do"]                  
   ]
 
 testsEj7 = test [ -- Casos de test para el ejercicio 7
-"palabras de un Trie vacío"  palabras (TrieNodo Nothing []) ~=? [],
-"una palabra de una letra"  palabras (TrieNodo Nothing [('f', TrieNodo (Just True) [])]) ~=? ["f"],
-"palabras con ramas" palabras (TrieNodo Nothing [ ('a', TrieNodo Nothing [ ('b', TrieNodo Nothing [ ('c', TrieNodo (Just 'abc') []) ])])]) ~=? ["abc"],
-"varias palabras" palabras TrieNodo Nothing[ ('h', TrieNodo Nothing[ ('o', TrieNodo Nothing[ ('l', TrieNodo (Just 'hol') []) ])]), ('a', TrieNodo (Just 'a') []) , ('m', TrieNodo Nothing [ ('u', TrieNodo Nothing [ ('n', TrieNodo (Just 'mun') []) ])]) , ('d', TrieNodo Nothing[ ('o', TrieNodo (Just 'do') []) ])] ~=? ["hol", "a", "mun","do"]                                         -- Caso de test 1 - resultado esperado
-  ]
+"ejemplo" palabras t ~=? ["a", "ba", "c"],
+"palabras de un Trie vacío"  palabras vacio ~=? [],
+"una palabra de una letra"  palabras unico ~=? ["f"],
+"palabras con ramas" palabras completa ~=? ["abc"],
+"varias palabras" palabras holamundo ~=? ["hol", "a", "mun", "do"]
+   ]
+
 
 testsEj8a = test [ -- Casos de test para el ejercicio 7
   True         -- Caso de test 1 - expresión a testear
