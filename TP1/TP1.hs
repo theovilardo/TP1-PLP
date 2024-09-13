@@ -323,18 +323,40 @@ testsEj7 = test [ -- Casos de test para el ejercicio 7
 "varias palabras" palabras holamundo ~=? ["hol", "a", "mun", "do"]
    ]
 
+pvacio _ = []
+psuma1 x = [x + 1]
+pconalgo _ = [1, 2, 3]
+phasta x = [0..x]
 
 testsEj8a = test [ -- Casos de test para el ejercicio 8a
 "Debe usar el primer procesador si el predicado es verdadero" (ifProc (not . null) (\x -> [1, 2, 3]) (\x -> [4, 5, 6]) [1, 2, 3]) ~=? [1, 2, 3],
 "Debe usar el segundo procesador si el predicado es falso"  (ifProc (not . null) (\x -> [1, 2, 3]) (\x -> [4, 5, 6]) []) ~=? [4, 5, 6],
-"Debe devolver una lista vacía si ambos procesadores devuelven vacías" (ifProc (const True) (const []) (const []) [1, 2, 3]) ~=? [],                     
+"Usa el primer procesador si el predicado es verdadero" (ifProc (const True) psuma1 pvacio 5) ~=? [6],
+"Usa el segundo procesador si el predicado es falso" (ifProc (const False) psuma1 pconalgo 5) ~=? [1, 2, 3],
+"Devuelve una lista vacía si ambos procesadores devuelven vacías"  (ifProc (null) pvacio pconalgo [2,7,9]) ~=? [1,2,3],
+"Debe devolver una lista vacía si ambos procesadores devuelven vacías" (ifProc (const True) (const []) (const []) [1, 2, 3]) ~=? [],
+"Usa el primer procesador cuando el predicado es verdadero" (ifProc (>0) psuma1 phasta 3) ~=? [4],                     
 "Debe devolver la lista del primer procesador si el predicado es verdadero" (ifProc (const True) (\x -> [1, 2, 3]) (\x -> [4, 5, 6]) [10]) ~=? [1, 2, 3]
    ]
-testsEj8b = test [ -- Casos de test para el ejercicio 7
-  True         -- Caso de test 1 - expresión a testear
-    ~=? True                                          -- Caso de test 1 - resultado esperado
+
+
+testsEj8b = test [ -- Casos de test para el ejercicio 8b
+"Concatena dos procesadores que devuelven listas vacías" (pvacio ++! pvacio) ~=? [],
+"Concatena un procesador vacío con uno no vacío" (pvacio ++! (\_ -> [4, 5, 6])) ~=? [4,5,6],
+"Concatena un procesador vacío con uno no vacío" ((pvacio ++! pconalgo) [7,9,10]) ~=? [1, 2, 3],
+"Concatena dos procesadores que devuelven listas no vacías" ((\_ -> [1, 2, 3]) ++! (\_ -> [4, 5, 6])) ~=? [1,2,3,4,5,6],
+"Concatena dos procesadores no vacíos" ((psuma1 ++! pconalgo) [1,1,1]) ~=? [6, 1, 2, 3],
+"Concatena preorder y postorder para un árbol ternario" ((postorder ++! preorder) at) ~=? [1, 2, 3, 4, 2, 3, 4, 1],
+"Concatena `phasta` y `psuma1`" ((phasta ++! psuma1) 5) ~=? [0, 1, 2, 3, 4,5,6]
   ]
-testsEj8c = test [ -- Casos de test para el ejercicio 7
-  True         -- Caso de test 1 - expresión a testear
-    ~=? True                                          -- Caso de test 1 - resultado esperado
+
+
+testsEj8c = test [ -- Casos de test para el ejercicio 8c
+"Aplicar dos procesadores vacíos" ((pvacio .! pvacio) [1, 2, 3]) ~=? [],
+"Aplicar primer procesador vacío, segundo no vacío" (pvacio .! (\x -> [x, x + 1]) [1, 2]) ~=? [],
+"Aplica el primer procesador vacío y el segundo no vacío" ((pvacio .! psuma1) 10) ~=? [],
+"Aplicar dos procesadores no vacíos" ((\z -> [0..z]) .! (\x -> [x, x + 1]) [1, 3]) ~=? [0, 1, 2, 0, 1, 2, 3, 4],
+"Aplica dos procesadores no vacíos" ((psuma1 .! phasta) 0) ~=? [1],
+"Aplicar incrementar después de duplicar" ((incrementar .! duplicar) [1, 2]) ~=? [2, 2, 4, 4, 6, 6],
+"Aplica `phasta` después de `pconalgo`" ((phasta .! pconalgo) 5) ~=? [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
   ]
