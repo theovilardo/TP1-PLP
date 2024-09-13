@@ -230,9 +230,16 @@ testsEj1 = test [
   procSubTries (TrieNodo Nothing [('y', TrieNodo (Just True) [])]) ~=? [('y', TrieNodo (Just True) [])]                                                      
   ]
 
-testsEj2 = test [ -- Casos de test para el ejercicio 2
-  (0,0)       -- Caso de test 1 - expresión a testear
-    ~=? (0,0)                   -- Caso de test 1 - resultado esperado
+testsEj2 = test [ 
+ foldAT (\v u d t -> v + u + d + t) 0 (Tern 1 (Tern 2 Nil Nil Nil) (Tern 3 Nil Nil Nil) (Tern 4 Nil Nil Nil)) ~=? 10,
+ foldAT (\_ _ _ _ -> 1) 0 Nil ~=? 0,
+
+ foldRose (\n hijosSuma -> n + sum hijosSuma) (Rose 5 [Rose 1 [], Rose 6 [], Rose 12 []])  ~=? 24,
+ foldRose (\_ _ -> 1) (Rose 0 []) ~=? 1
+
+ foldTrie (\_ hijos -> 1 + sum (map snd hijos)) (TrieNodo (Just 'a') [('b', TrieNodo (Just 'c') []), ('d', TrieNodo (Just 'e') [])]) ~=? 3
+ foldTrie (\v _ -> maybe 0 (const 1) v) (TrieNodo (Just 0) []) ~=? 1
+ foldTrie (\_ _ -> 1) (TrieNodo Nothing []) ~=? 1      
   ]
 
 testsEj3 = test [ -- Casos de test para el ejercicio 3
