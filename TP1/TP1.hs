@@ -242,9 +242,18 @@ testsEj2 = test [
  foldTrie (\_ _ -> 1) (TrieNodo Nothing []) ~=? 1      
   ]
 
-testsEj3 = test [ -- Casos de test para el ejercicio 3
-  'a'      -- Caso de test 1 - expresión a testear
-    ~=? 'a'            -- Caso de test 1 - resultado esperado
+testsEj3 = test [ 
+ unoxuno [1,2,3,4] ~=? [[1],[2],[3],[4]],
+ unoxuno ([]:: [Int]) ~=? ([[]]:: [[Int]]),
+ unoxuno ("String1") ~=? ["h","o","l","a"]
+ unoxuno (["String2"]) ~=? [["string"]],
+ unoxuno ([[True, False], [True, True]]) ~=? [[[True,False]],[[True,True]]],
+
+ sufijos [1,2,3,4] ~=? [[1,2,3,4],[2,3,4],[3,4],[4]],
+ sufijos ([]:: [Int]) ~=? ([[]]:: [[Int]]),
+ sufijos ("char") ~=? ["char","har","ar","r"],
+ sufijos sufijos [[1,3],[4,5],[6,7]] ~=? [[[1,3],[4,5],[6,7]],[[4,5],[6,7]],[[6,7]]],
+ sufijos ([True, False]) ~=? [[True,False],[False]]
   ]
 
 testsEj4 = test [ -- Casos de test para el ejercicio 4
