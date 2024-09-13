@@ -256,14 +256,48 @@ testsEj3 = test [
  sufijos ([True, False]) ~=? [[True,False],[False]]
   ]
 
-testsEj4 = test [ -- Casos de test para el ejercicio 4
-  ""       -- Caso de test 1 - expresión a testear
-    ~=? ""                             -- Caso de test 1 - resultado esperado
+arbolTVacio = Nil
+arbolT1 = Tern 16 (Tern 1 9 7 2) (Tern 14 0 3 6) (Tern 8 5 4)
+arbolT2 = Tern 1 (Tern 2 3 4 Nil) (Tern 5 Nil 6 Nil) (Tern 7 8 Nil 9)
+arbolT3 = Tern 3 (Tern 16 27 Nil (Tern 38 14 12 Nil)) Nil (Tern 49 21 16 7)
+
+testsEj4 = test [
+  preorder (arbolVacio) ~=? [],
+  preorder (arbolT1) ~=? [16,1,9,7,2,14,0,3,6,8,5,4],
+  preorder (arbolT2) ~=? [1,2,3,4,5,6,7,8,9],
+  preorder (arbolT3) ~=? [3,16,27,38,14,12,49,21,16,7],
+
+  postorder (arbolVacio) ~=? [],
+  postorder (arbolT1) ~=? [9,7,2,1,0,3,6,14,8,5,4,10,16],
+  postorder (arbolT2) ~=? [3,4,2,6,5,8,9,7,1],
+  postorder (arbolT3) ~=? [27,14,12,38,16,21,16,7,49,3],
+  
+  inorder (arbolVacio) ~=? [],
+  inorder (arbolT1) ~=? [9,7,1,2,0,3,14,6,16,8,5,10,4],
+  inorder (arbolT2) ~=? [3,4,2,6,5,1,8,7,9],
+  inorder (arbolT3) ~=? [27,16,14,12,38,3,21,16,49,7]
   ]
 
-testsEj5 = test [ -- Casos de test para el ejercicio 5
-  0       -- Caso de test 1 - expresión a testear
-    ~=? 0                                       -- Caso de test 1 - resultado esperado
+roseVacio = Rose 0 []
+rose1 = Rose 1 [Rose 2 [], Rose 3 [], Rose 4 []]
+rose2 = Rose 10 [Rose 5 [Rose 1 [], Rose 3 []], Rose 6 [Rose 4 [Rose 2 []]], Rose 9 []]
+rose3 = Rose 20 [Rose 19 [Rose 14 [Rose 6 [Rose 5 []]]], Rose 18 [Rose 12 [Rose 4 [], Rose 3 []], Rose 11 [Rose 2 []], Rose 10 [Rose 1 []]], Rose 17[Rose 9 []], Rose 16 [], Rose 15 [Rose 8 [], Rose 7 []]]
+
+testsEj5 = test [
+  preorderRose (roseVacio) ~=? [],
+  preorderRose (rose1) ~=? [1,2,3,4],
+  preorderRose (rose2) ~=? [10,5,1,3,6,4,2,9],
+  preorderRose (rose3) ~=? [20,19,14,6,5,13,18,12,4,3,11,2,10,1,17,9,16,15,8,7],
+
+  hojasRose (roseVacio) ~=? [],
+  hojasRose (rose1) ~=? [2,3,4],
+  hojasRose (rose2) ~=? [1,3,2,9],
+  hojasRose (rose3) ~=? [5,4,3,2,1,9,16,8,7],
+
+  ramasRose (roseVacio) ~=? [],
+  ramasRose (rose1) ~=? [[1,2],[1,3],[1,4]],
+  ramasRose (rose2) ~=? [[10,5,1],[10,5,3],[10,6,4,2],[10,9]],
+  ramasRose (rose3) ~=? [[20,19,14,6,5],[20,19,13],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]]
   ]
 
 t = TrieNodo Nothing [ ('a', TrieNodo (Just True) []) , ('b', TrieNodo Nothing [ ('a', TrieNodo (Just True) [ ('d', TrieNodo Nothing []) ])]) , ('c', TrieNodo (Just True) [])]
