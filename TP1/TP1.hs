@@ -220,11 +220,11 @@ testsEj1 = test [
   procHijosAT (Tern "Selección Argentina" (Tern "Selección Francesa" Nil Nil Nil) (Tern "Selección de Países Bajos" Nil Nil Nil) (Tern "Selección de Uruguay" Nil Nil Nil)) ~=? [Tern "Selección Francesa" Nil Nil Nil, Tern "Selección de Países Bajos" Nil Nil Nil, Tern "Selección de Uruguay" Nil Nil Nil],
 
   procRaizTrie (TrieNodo (Just 20) [('a', TrieNodo Nothing [])]) ~=? [Just 20],
-  --procRaizTrie (TrieNodo Nothing []) ~=? [],
+  procRaizTrie (TrieNodo Nothing []) ~=? ([] :: [Maybe Int]), --fixed? (borrar este comentario si se arreglo)
   procRaizTrie (TrieNodo (Just False) []) ~=? [Just False],
   procRaizTrie (TrieNodo (Just "Selección Argentina") [('f', TrieNodo (Just "Selección Francesa") [])]) ~=? [Just "Selección Argentina"],
 
-  --procSubTries (TrieNodo Nothing []) ~=? [],
+  procSubTries (TrieNodo Nothing []) ~=? ([] :: [(Char, Trie Int)]) --fixed? (borrar este comentario si se arreglo)
   procSubTries (TrieNodo (Just 5) [('a', TrieNodo Nothing []), ('b', TrieNodo (Just 3) [])]) ~=? [('a', TrieNodo Nothing []), ('b', TrieNodo (Just 3) [])],
   procSubTries (TrieNodo (Just 'p') [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])]) ~=? [('l', TrieNodo (Just 'l') [('p', TrieNodo (Just 'p') [])])],
   procSubTries (TrieNodo Nothing [('y', TrieNodo (Just True) [])]) ~=? [('y', TrieNodo (Just True) [])]                                                      
