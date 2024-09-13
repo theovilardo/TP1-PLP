@@ -257,13 +257,13 @@ testsEj3 = test [
   ]
 
 arbolTVacio = Nil
-arbolT1 = Tern 16 (Tern 1 9 7 2) (Tern 14 0 3 6) (Tern 8 5 4)
+arbolT1 = Tern 16 (Tern 1 9 7 2) (Tern 14 0 3 6) (Tern 10 8 5 4)
 arbolT2 = Tern 1 (Tern 2 3 4 Nil) (Tern 5 Nil 6 Nil) (Tern 7 8 Nil 9)
 arbolT3 = Tern 3 (Tern 16 27 Nil (Tern 38 14 12 Nil)) Nil (Tern 49 21 16 7)
 
 testsEj4 = test [
   preorder (arbolTVacio) ~=? [],
-  preorder (arbolT1) ~=? [16,1,9,7,2,14,0,3,6,8,5,4],
+  preorder (arbolT1) ~=? [16,1,9,7,2,14,0,3,6,10,8,5,4],
   preorder (arbolT2) ~=? [1,2,3,4,5,6,7,8,9],
   preorder (arbolT3) ~=? [3,16,27,38,14,12,49,21,16,7],
 
