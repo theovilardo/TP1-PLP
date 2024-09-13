@@ -207,11 +207,11 @@ testsEj1 = test [
   procCola [True, False, True] ~=? [False, True],
   procCola [[1,2,4],[1,5,6]] ~=? [[1,5,6]],
 
-  --procHijosRose Rose 0 [Rose 5 [], Rose 1 []] ~=? [Rose 5 [], Rose 1 []],
-  --procHijosRose Rose 1 [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]] ~=? [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]],
-  --procHijosRose Rose 0 [] ~=? [],
-  --procHijosRose Rose True [Rose False []] ~=? [Rose False []],
-  --procHijosRose Rose "Selección Argentina" [Rose "Selección Francesa" []] ~=? [Rose "Selección Francesa" []],
+  procHijosRose (Rose 0 [Rose 5 [], Rose 1 []]) ~=? [Rose 5 [], Rose 1 []],
+  procHijosRose (Rose 1 [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]]) ~=? [Rose 6 [], Rose 9 [Rose 4 [], Rose 3 []]],
+  procHijosRose (Rose 0 []) ~=? [],
+  procHijosRose (Rose True [Rose False []] )~=? [Rose False []],
+  procHijosRose (Rose "Selección Argentina" [Rose "Selección Francesa" []]) ~=? [Rose "Selección Francesa" []],
 
 
   procHijosAT (Tern 0 (Tern 5 Nil Nil Nil) (Tern 1 Nil Nil Nil) Nil) ~=? [Tern 5 Nil Nil Nil, Tern 1 Nil Nil Nil, Nil],
