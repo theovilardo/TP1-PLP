@@ -262,17 +262,17 @@ arbolT2 = Tern 1 (Tern 2 3 4 Nil) (Tern 5 Nil 6 Nil) (Tern 7 8 Nil 9)
 arbolT3 = Tern 3 (Tern 16 27 Nil (Tern 38 14 12 Nil)) Nil (Tern 49 21 16 7)
 
 testsEj4 = test [
-  preorder (arbolVacio) ~=? [],
+  preorder (arbolTVacio) ~=? [],
   preorder (arbolT1) ~=? [16,1,9,7,2,14,0,3,6,8,5,4],
   preorder (arbolT2) ~=? [1,2,3,4,5,6,7,8,9],
   preorder (arbolT3) ~=? [3,16,27,38,14,12,49,21,16,7],
 
-  postorder (arbolVacio) ~=? [],
+  postorder (arbolTVacio) ~=? [],
   postorder (arbolT1) ~=? [9,7,2,1,0,3,6,14,8,5,4,10,16],
   postorder (arbolT2) ~=? [3,4,2,6,5,8,9,7,1],
   postorder (arbolT3) ~=? [27,14,12,38,16,21,16,7,49,3],
   
-  inorder (arbolVacio) ~=? [],
+  inorder (arbolTVacio) ~=? [],
   inorder (arbolT1) ~=? [9,7,1,2,0,3,14,6,16,8,5,10,4],
   inorder (arbolT2) ~=? [3,4,2,6,5,1,8,7,9],
   inorder (arbolT3) ~=? [27,16,14,12,38,3,21,16,49,7]
