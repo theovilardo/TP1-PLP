@@ -256,10 +256,10 @@ testsEj3 = test [
  sufijos ([True, False]) ~=? [[True,False],[False]]
   ]
 
-arbolTVacio = Nil
-arbolT1 = Tern 16 (Tern 1 9 7 2) (Tern 14 0 3 6) (Tern 10 8 5 4)
-arbolT2 = Tern 1 (Tern 2 3 4 Nil) (Tern 5 Nil 6 Nil) (Tern 7 8 Nil 9)
-arbolT3 = Tern 3 (Tern 16 27 Nil (Tern 38 14 12 Nil)) Nil (Tern 49 21 16 7)
+AT Int :: arbolTVacio = Nil
+AT Int :: arbolT1 = Tern 16 (Tern 1 9 7 2) (Tern 14 0 3 6) (Tern 10 8 5 4)
+AT Int :: arbolT2 = Tern 1 (Tern 2 3 4 Nil) (Tern 5 Nil 6 Nil) (Tern 7 8 Nil 9)
+AT Int :: arbolT3 = Tern 3 (Tern 16 27 Nil (Tern 38 14 12 Nil)) Nil (Tern 49 21 16 7)
 
 testsEj4 = test [
   preorder (arbolTVacio) ~=? [],
@@ -278,10 +278,10 @@ testsEj4 = test [
   inorder (arbolT3) ~=? [27,16,14,12,38,3,21,16,49,7]
   ]
 
-roseVacio = Rose 0 []
-rose1 = Rose 1 [Rose 2 [], Rose 3 [], Rose 4 []]
-rose2 = Rose 10 [Rose 5 [Rose 1 [], Rose 3 []], Rose 6 [Rose 4 [Rose 2 []]], Rose 9 []]
-rose3 = Rose 20 [Rose 19 [Rose 14 [Rose 6 [Rose 5 []]]], Rose 18 [Rose 12 [Rose 4 [], Rose 3 []], Rose 11 [Rose 2 []], Rose 10 [Rose 1 []]], Rose 17[Rose 9 []], Rose 16 [], Rose 15 [Rose 8 [], Rose 7 []]]
+RoseTree Int :: roseVacio = Rose 0 []
+RoseTree Int :: rose1 = Rose 1 [Rose 2 [], Rose 3 [], Rose 4 []]
+RoseTree Int :: rose2 = Rose 10 [Rose 5 [Rose 1 [], Rose 3 []], Rose 6 [Rose 4 [Rose 2 []]], Rose 9 []]
+RoseTree Int :: rose3 = Rose 20 [Rose 19 [Rose 14 [Rose 6 [Rose 5 []]]], Rose 18 [Rose 12 [Rose 4 [], Rose 3 []], Rose 11 [Rose 2 []], Rose 10 [Rose 1 []]], Rose 17[Rose 9 []], Rose 16 [], Rose 15 [Rose 8 [], Rose 7 []]]
 
 testsEj5 = test [
   preorderRose (roseVacio) ~=? [],
