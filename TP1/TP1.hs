@@ -107,9 +107,11 @@ foldTrie cTrie (TrieNodo v hijos) = cTrie v (map (\(char, hijo) -> (char, foldTr
 
 --Ejercicio 3
 unoxuno :: Procesador [a] [a]
-unoxuno = map (\ x -> [x])
+unoxuno [] = []
+unoxuno xs = map (\x -> [x]) xs
 
 sufijos :: Procesador [a] [a]
+sufijos [] = []
 sufijos xs = rec xs []
       where rec [] acc = acc
             rec ys acc = ys : rec (tail ys) acc
