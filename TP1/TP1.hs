@@ -317,17 +317,17 @@ testsEj5 = test [
   preorderRose roseVacio ~=? [0], -- el rose vacio como tal no existe, siempre tinee un nodo
   preorderRose rose1 ~=? [1,2,3,4],
   preorderRose rose2 ~=? [10,5,1,3,6,4,2,9],
-  preorderRose rose3 ~=? [20,19,14,6,5,13,18,12,4,3,11,2,10,1,17,9,16,15,8,7],
+  preorderRose rose3 ~=? [20,19,14,6,5,18,12,4,3,11,2,10,1,17,9,16,15,8,7], -- el 13 no esta en el rose
 
-  hojasRose roseVacio ~=? [],
+  hojasRose roseVacio ~=? [0],
   hojasRose rose1 ~=? [2,3,4],
   hojasRose rose2 ~=? [1,3,2,9],
   hojasRose rose3 ~=? [5,4,3,2,1,9,16,8,7],
 
-  ramasRose roseVacio ~=? [],
+  ramasRose roseVacio ~=? [[0]],
   ramasRose rose1 ~=? [[1,2],[1,3],[1,4]],
   ramasRose rose2 ~=? [[10,5,1],[10,5,3],[10,6,4,2],[10,9]],
-  ramasRose rose3 ~=? [[20,19,14,6,5],[20,19,13],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]]
+  ramasRose rose3 ~=? [[20,19,14,6,5],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]] -- old: [[20,19,14,6,5],[20,19,13],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]]
   ]
 
 testsEj6 = test [ -- Casos de test para el ejercicio 6
@@ -370,13 +370,14 @@ testsEj8b = test [ -- Casos de test para el ejercicio 8b
 
 
 testsEj8c = test [ -- Casos de test para el ejercicio 8c
+  "Test de consigna" ~: ((\z->[0..z]) .! map (+1)) [1, 3] ~=? [0,1,2,0,1,2,3,4],
   "Aplicar dos procesadores vacíos" ~: (pvacio .! pvacio) [1, 2, 3] ~=? ([] :: [Int]),
   "Aplicar primer procesador vacío, segundo no vacío" ~: (pvacio .! (\x -> [x, x + 1])) (1 :: Int) ~=? ([] :: [Int]),
   "Aplica el primer procesador vacío y el segundo no vacío" ~: (pvacio .! psuma1) 10 ~=? ([] :: [Int]),
   --"Aplicar dos procesadores no vacíos" ~: ((\z -> [0..z]) .! (\x -> [x, x + 1])) [1, 3] ~=? [0, 1, 2, 0, 1, 2, 3], -- original
-  "Aplicar dos procesadores no vacíos" ~: ((\z -> [0 .. z]) .! (\x -> [x, x + 1])) (1 :: Int) ~=? [0, 1, 2],
+  "Aplicar dos procesadores no vacíos" ~: ((\z -> [0 .. z]) .! (\x -> [x, x + 1])) (1 :: Int) ~=? [0, 1,0,1,2],
   "Aplica dos procesadores no vacíos"~:  (psuma1 .! phasta) 0 ~=? [1],
   --"Aplicar incrementar después de duplicar"~:  (incrementar .! duplicar) [1, 2] ~=? ([2, 2, 4, 4, 6, 6] :: [Int]), -- original
-  "Aplicar incrementar después de duplicar" ~: (incrementar .! duplicar) (1 :: Int) ~=? [2, 2, 4],
-  "Aplica `phasta` después de `pconalgo`" ~: (phasta .! pconalgo) 5 ~=? [0, 1, 2, 3, 0, 1, 2, 3, 0, 1, 2, 3]
+  "Aplicar incrementar después de duplicar" ~: (incrementar .! duplicar) (1 :: Int) ~=? [1,2 ,2,3],
+  "Aplica `phasta` después de `pconalgo`" ~: (phasta .! pconalgo) 5 ~=? [0,1,0,1,2,0, 1,2,3]
   ]
