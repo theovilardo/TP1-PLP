@@ -174,7 +174,7 @@ ifProc pred p1 p2 = \x -> if pred x then p1 x else p2 x
 
 {-Tests-}
 
-main :: IO Counts --()
+main :: IO Counts
 main = do runTestTT allTests
 
 t = TrieNodo Nothing [ ('a', TrieNodo (Just True) []) , ('b', TrieNodo Nothing [ ('a', TrieNodo (Just True) [ ('d', TrieNodo Nothing []) ])]) , ('c', TrieNodo (Just True) [])]
