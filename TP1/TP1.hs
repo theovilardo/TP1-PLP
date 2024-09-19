@@ -74,7 +74,7 @@ procCola :: Procesador [a] a
 procCola [] = []
 procCola (x:xs) = xs
 
-procHijosRose :: Procesador (RoseTree a) (RoseTree a) -- devuelve una lista de RoseTree (Proc)
+procHijosRose :: Procesador (RoseTree a) (RoseTree a)
 procHijosRose (Rose _ hijos) = hijos 
 
 procHijosAT :: Procesador (AT a) (AT a)
@@ -92,7 +92,7 @@ procSubTries (TrieNodo _ hijos) = hijos
 
 --Ejercicio 2
 
-foldAT :: (a -> b -> b -> b -> b) -> b -> AT a -> b -- es como el de foldAEB pero con un hijo mas por nodo
+foldAT :: (a -> b -> b -> b -> b) -> b -> AT a -> b
 foldAT cTern cNil at = case at of
                 Nil -> cNil
                 Tern v u d t -> cTern v (foldAT cTern cNil u) (foldAT cTern cNil d) (foldAT cTern cNil t)
@@ -118,7 +118,7 @@ sufijos xs = rec xs []
 
 --Ejercicio 4
 preorder :: AT a -> [a]
-preorder = foldAT (\v u d t -> [v] ++ u ++ d ++ t) [] -- valor inicial "[]"
+preorder = foldAT (\v u d t -> [v] ++ u ++ d ++ t) []
 
 inorder :: AT a -> [a]
 inorder = foldAT (\v u d t -> u ++ d ++ [v] ++ t) []
@@ -140,7 +140,7 @@ ramasRose = foldRose (\v hijos -> if null hijos then [[v]] else map (v: ) (conca
 
 --Ejercicio 6
 
-caminos :: Trie a -> [String] -- es como hacer un dump de todas las claves posibles
+caminos :: Trie a -> [String]
 caminos = foldTrie (\_ paresCs -> [""] ++ concatMap (\(c, chars) -> map (c :) chars) paresCs)
 
 
@@ -175,7 +175,7 @@ ifProc pred p1 p2 = \x -> if pred x then p1 x else p2 x
 {-Tests-}
 
 main :: IO Counts --()
-main = do runTestTT allTests --runTestTTAndExit testsEj1 --do runTestTT allTests
+main = do runTestTT allTests
 
 t = TrieNodo Nothing [ ('a', TrieNodo (Just True) []) , ('b', TrieNodo Nothing [ ('a', TrieNodo (Just True) [ ('d', TrieNodo Nothing []) ])]) , ('c', TrieNodo (Just True) [])]
 vacio = TrieNodo Nothing []
@@ -217,7 +217,7 @@ incrementar x = [x, x + 1]
 duplicar :: Procesador Int Int
 duplicar x = [x, x * 2]
 
-allTests = test [ -- Reemplazar los tests de prueba por tests propios
+allTests = test [
   "ejercicio1" ~: testsEj1,
   "ejercicio2" ~: testsEj2,
   "ejercicio3" ~: testsEj3,
@@ -230,16 +230,16 @@ allTests = test [ -- Reemplazar los tests de prueba por tests propios
   "ejercicio8c" ~: testsEj8c
   ]
 
-testsEj1 = test [
+testsEj1 = test [ -- Casos de test para el ejercicio 1
  procVacio 0 ~=? ([]:: [Int]),
   procVacio (-15) ~=? ([]:: [Int]),
   procVacio True ~=? ([]::[Bool]),
-  procVacio ["string"] ~=? ([] :: [String]), -- cmabie de [char] a [String] (en realidad deberia ser lo mismo pero haskell rompe las bolas)
+  procVacio ["string"] ~=? ([] :: [String]),
   procVacio ([] :: [Int]) ~?= ([] :: [Int]),
 
   procId 0 ~=? [0],
   procId True ~=? [True],
-  procId ([]:: [Int]) ~=? ([[]]:: [[Int]]), -- era [], lo cambie a [Int]
+  procId ([]:: [Int]) ~=? ([[]]:: [[Int]]),
   procId  "string" ~=? ["string"],
   procId [[1,3],[2,4]] ~=? [[[1,3],[2,4]]],
 
@@ -272,7 +272,7 @@ testsEj1 = test [
   procSubTries (TrieNodo Nothing [('y', TrieNodo (Just True) [])]) ~=? [('y', TrieNodo (Just True) [])]
   ]
 
-testsEj2 = test [
+testsEj2 = test [ -- Casos de test para el ejercicio 2
  foldAT (\v u d t -> v + u + d + t) 0 (Tern 1 (Tern 2 Nil Nil Nil) (Tern 3 Nil Nil Nil) (Tern 4 Nil Nil Nil)) ~=? 10,
  foldAT (\_ _ _ _ -> 1) 0 Nil ~=? 0,
 
@@ -284,21 +284,21 @@ testsEj2 = test [
  foldTrie (\_ _ -> 1) (TrieNodo Nothing []) ~=? 1
   ]
 
-testsEj3 = test [
+testsEj3 = test [ -- Casos de test para el ejercicio 3
  unoxuno [1,2,3,4] ~=? [[1],[2],[3],[4]],
- unoxuno ([]:: [Int]) ~=? ([]:: [[Int]]), -- consultar si deberia ser [[]] o []
+ unoxuno ([]:: [Int]) ~=? ([]:: [[Int]]),
  unoxuno "hola" ~=? ["h","o","l","a"],
  unoxuno ["String2"] ~=? [["String2"]],
  unoxuno [[True, False], [True, True]] ~=? [[[True,False]],[[True,True]]],
 
  sufijos [1,2,3,4] ~=? [[1,2,3,4],[2,3,4],[3,4],[4]],
- sufijos ([]:: [Int]) ~=? ([]:: [[Int]]), -- consultar si deberia ser [[]] o []
+ sufijos ([]:: [Int]) ~=? ([]:: [[Int]]),
  sufijos "char" ~=? ["char","har","ar","r"],
  sufijos [[1,3],[4,5],[6,7]] ~=? [[[1,3],[4,5],[6,7]],[[4,5],[6,7]],[[6,7]]],
  sufijos [True, False] ~=? [[True,False],[False]]
   ]
 
-testsEj4 = test [
+testsEj4 = test [ -- Casos de test para el ejercicio 4
   "preorder arbolTVacio" ~: (preorder arbolTVacio :: [Int]) ~?= ([] :: [Int]),
   "preorder arbolT1" ~: preorder arbolT1 ~?= [16,1,9,7,2,14,0,3,6,10,8,5,4],
   "preorder arbolT2" ~: preorder arbolT2 ~?= [1,2,3,4,5,6,7,8,9],
@@ -315,11 +315,11 @@ testsEj4 = test [
   "inorder arbolT3" ~: inorder arbolT3 ~?= [27,16,14,12,38,3,21,16,49,7]
   ]
 
-testsEj5 = test [
-  preorderRose roseVacio ~=? [0], -- el rose vacio como tal no existe, siempre tinee un nodo
+testsEj5 = test [ -- Casos de test para el ejercicio 5
+  preorderRose roseVacio ~=? [0],
   preorderRose rose1 ~=? [1,2,3,4],
   preorderRose rose2 ~=? [10,5,1,3,6,4,2,9],
-  preorderRose rose3 ~=? [20,19,14,6,5,18,12,4,3,11,2,10,1,17,9,16,15,8,7], -- el 13 no esta en el rose
+  preorderRose rose3 ~=? [20,19,14,6,5,18,12,4,3,11,2,10,1,17,9,16,15,8,7],
 
   hojasRose roseVacio ~=? [0],
   hojasRose rose1 ~=? [2,3,4],
@@ -329,7 +329,7 @@ testsEj5 = test [
   ramasRose roseVacio ~=? [[0]],
   ramasRose rose1 ~=? [[1,2],[1,3],[1,4]],
   ramasRose rose2 ~=? [[10,5,1],[10,5,3],[10,6,4,2],[10,9]],
-  ramasRose rose3 ~=? [[20,19,14,6,5],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]] -- old: [[20,19,14,6,5],[20,19,13],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]]
+  ramasRose rose3 ~=? [[20,19,14,6,5],[20,18,12,4],[20,18,12,3],[20,18,11,2],[20,18,10,1],[20,17,9],[20,16],[20,15,8],[20,15,7]]
   ]
 
 testsEj6 = test [ -- Casos de test para el ejercicio 6
