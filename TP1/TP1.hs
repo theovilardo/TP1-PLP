@@ -86,7 +86,6 @@ procRaizTrie (TrieNodo Nothing _) = Nothing
 procRaizTrie (TrieNodo (Just x) _) = [Just x]
 
 procSubTries :: Procesador (Trie a) (Char, Trie a)
-procSubTries (TrieNodo _ []) = []
 procSubTries (TrieNodo _ hijos) = hijos
 
 
