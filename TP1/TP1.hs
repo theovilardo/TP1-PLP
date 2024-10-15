@@ -146,10 +146,11 @@ caminos = foldTrie (\_ paresCs -> [""] ++ concatMap (\(c, chars) -> map (c :) ch
 palabras :: Trie a -> [String]
 palabras = foldTrie palabrasFold
 
-palabrasFold :: Maybe a -> [(Char, [String])] -> [String]
+palabrasFold :: Maybe a -> [(Char, [String])] -> [String] --fixed
 palabrasFold v cs = case v of
-                Nothing -> concatMap (\(c, strings) -> map (c: ) strings) cs
-                Just _  -> "" : concatMap (\(c, strings) -> map (c: ) strings) cs
+                Nothing -> concRec cs
+                Just _  -> "" : concRec cs
+                where concRec = concatMap (\(c, strings) -> map (c: ) strings)
 
 
 --Ejercicio 8
