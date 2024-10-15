@@ -82,7 +82,7 @@ procHijosAT Nil = []
 procHijosAT (Tern v u d t) = [u, d, t]
 
 procRaizTrie :: Procesador (Trie a) (Maybe a)
-procRaizTrie (TrieNodo Nothing _) = []
+procRaizTrie (TrieNodo Nothing _) = Nothing
 procRaizTrie (TrieNodo (Just x) _) = [Just x]
 
 procSubTries :: Procesador (Trie a) (Char, Trie a)
