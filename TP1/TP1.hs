@@ -81,17 +81,17 @@ procHijosAT :: Procesador (AT a) (AT a)
 procHijosAT Nil = []
 procHijosAT (Tern v u d t) = [u, d, t]
 
-procRaizTrie :: Procesador (Trie a) (Maybe a)
+procRaizTrie :: Procesador (Trie a) (Maybe a) --fixed
 procRaizTrie (TrieNodo Nothing _) = Nothing
 procRaizTrie (TrieNodo (Just x) _) = [Just x]
 
-procSubTries :: Procesador (Trie a) (Char, Trie a)
+procSubTries :: Procesador (Trie a) (Char, Trie a) --fixed 
 procSubTries (TrieNodo _ hijos) = hijos
 
 
 --Ejercicio 2
 
-foldAT :: (a -> b -> b -> b -> b) -> b -> AT a -> b
+foldAT :: (a -> b -> b -> b -> b) -> b -> AT a -> b --fixed
 foldAT cTern cNil at = case at of
                 Nil -> cNil
                 Tern v u d t -> cTern v (rec u) (rec d) (rec t)
@@ -110,11 +110,8 @@ unoxuno :: Procesador [a] [a]
 unoxuno [] = []
 unoxuno xs = map (\x -> [x]) xs
 
-sufijos :: Procesador [a] [a]
-sufijos [] = []
-sufijos xs = rec xs []
-      where rec [] acc = acc
-            rec ys acc = ys : rec (tail ys) acc
+sufijos :: Procesador [a] [a] --fixed
+sufijos = foldr (\x acc -> (x : head acc) : acc) [[]]
 
 --Ejercicio 4
 preorder :: AT a -> [a]
