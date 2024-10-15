@@ -94,7 +94,8 @@ procSubTries (TrieNodo _ hijos) = hijos
 foldAT :: (a -> b -> b -> b -> b) -> b -> AT a -> b
 foldAT cTern cNil at = case at of
                 Nil -> cNil
-                Tern v u d t -> cTern v (foldAT cTern cNil u) (foldAT cTern cNil d) (foldAT cTern cNil t)
+                Tern v u d t -> cTern v (rec u) (rec d) (rec t)
+                where rec = foldAT cTern cNil
 
 foldRose :: (a -> [b] -> b) -> RoseTree a -> b
 foldRose cRose (Rose n hijos) = cRose n (map rec hijos)
